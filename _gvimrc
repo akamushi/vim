@@ -13,3 +13,18 @@ set columns=73
 " window height
 set lines=35
 
+
+" tab color
+hi SpecialKey guibg=NONE guifg=Gray40
+
+"入力モード時、ステータスラインのカラーを変更
+augroup InsertHook
+	autocmd!
+	autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
+	autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
+augroup END
+
+
+
+
+
