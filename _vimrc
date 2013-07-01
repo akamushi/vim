@@ -103,20 +103,42 @@ NeoBundleLazy 'Shougo/vimfiler', {
 \}
 " }}}
 
-NeoBundle 'ujihisa/quickrun'		"{{{
-let s:bundle = neobundle#get('quickrun')
-function! s:bundle.hooks.on_source(bundle)
-	let g:quickrun_config = {
-	\  '_': {
-	\    'runmode': 'async:vimproc:10',
-	\    'hook/output_encode/enable': 1,
-	\  },
-	\}
-
-endfunction
+"NeoBundle 'ujihisa/quickrun'		"{{{
+"let s:bundle = neobundle#get('quickrun')
+"function! s:bundle.hooks.on_source(bundle)
+"	let g:quickrun_config = {}
+"	let g:quickrun_config = {
+"	\  '_': {
+"	\    'runmode': 'async:vimproc:10',
+"	\    'hook/output_encode/enable': 1,
+"	\  },
+"	\}
+"endfunction
 "}}}
 
 NeoBundle 'fuenor/qfixgrep'
+
+NeoBundle 'vim-scripts/capslock.vim'
+let s:bundle = neobundle#get('capslock.vim')
+function! s:bundle.hooks.on_source(bundle)
+	imap <C-a> <C-O><Plug>CapsLockToggle
+endfunction
+
+NeoBundle 'tyru/open-browser.vim'
+
+NeoBundle 'thinca/vim-quickrun'
+let s:bundle = neobundle#get('vim-quickrun')
+function! s:bundle.hooks.on_source(bundle)
+	let g:quickrun_config = {}
+	let g:quickrun_config = {
+		\	'markdown' : {
+		\		'type': 'markdown/pandoc',
+		\		'cmdopt': '-s',
+		\		'outputter': 'browser',
+		\	}
+		\}
+endfunction
+
 
 " Required!
 filetype plugin indent on
@@ -124,6 +146,14 @@ filetype plugin indent on
 
 " }}}
 syntax on
+
+" setfiletype
+augroup filetypedetect
+	autocmd BufNewFile,BufRead *.scala setfiletype scala
+	autocmd BufNewFile,BufRead *.mkd setfiletype markdown
+	autocmd BufNewFile,BufRead *.md setfiletype markdown
+	autocmd BufNewFile,BufRead *.markdown setfiletype markdown
+augroup END
 
 "É^Éuïù
 set tabstop=2
@@ -162,10 +192,6 @@ set helplang=ja
 set grepprg=internal
 
 
-" setfiletype
-augroup filetypedetect
-	autocmd! BufNewFile,BufRead *.scala setfiletype scala
-augroup END
 
 
 
