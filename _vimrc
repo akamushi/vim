@@ -191,6 +191,9 @@ set helplang=ja
 " grepにvimgrepを使用する
 set grepprg=internal
 
+" ファイル名補完をbashのようにする
+set wildmode=list:longest
+
 
 
 
