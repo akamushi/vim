@@ -133,12 +133,29 @@ function! s:bundle.hooks.on_source(bundle)
 	let g:quickrun_config = {
 		\	'markdown' : {
 		\		'type': 'markdown/pandoc',
-		\		'cmdopt': '-s',
 		\		'outputter': 'browser',
 		\	}
 		\}
+"		\		'cmdopt': '-s',
 endfunction
 
+NeoBundle 'pangloss/vim-javascript'
+ 
+NeoBundle 'vim-scripts/Align'
+let s:bundle = neobundle#get('Align')
+function! s:bundle.hooks.on_source(bundle)
+	let g:Align_xstrlen = 3
+endfunction
+
+
+NeoBundle 'rhysd/accelerated-jk'
+let s:bundle = neobundle#get('accelerated-jk')
+function! s:bundle.hooks.on_source(bundle)
+	" let g:accelerated_jk_acceleration_table = [50,20]
+	let g:accelerated_jk_acceleration_limit = 250
+	nmap j <Plug>(accelerated_jk_gj)
+	nmap k <Plug>(accelerated_jk_gk)
+endfunction
 
 " Required!
 filetype plugin indent on
@@ -194,7 +211,9 @@ set grepprg=internal
 " ファイル名補完をbashのようにする
 set wildmode=list:longest
 
-
+" スムーズスクロール（笑）
+map <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
+map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
 
 
 
