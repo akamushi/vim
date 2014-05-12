@@ -9,61 +9,24 @@ if has('vim_starting')
   set runtimepath+=%USERPROFILE%\_vim\bundle/neobundle.vim
 endif
 
-call neobundle#rc(expand('~\_vim\bundle/'))
+call neobundle#begin(expand('~/_vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc'
 
-"neocomplcache {{{
-NeoBundle 'Shougo/neocomplcache'
-" ‹N“®‚É—LŒø‰»
-let g:neocomplcache_enable_at_startup = 1
-
-let s:bundle = neobundle#get('neocomplcache')
+"neocomplete {{{
+NeoBundle 'Shougo/neocomplete'
+" èµ·å‹•æ™‚ã«æœ‰åŠ¹åŒ–
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let s:bundle = neobundle#get('neocomplete')
 function! s:bundle.hooks.on_source(bundle)
-	" •âŠ®ƒEƒBƒ“ƒhƒE‚Ìİ’è
-	set completeopt=menuone
- 
-	" ‘å•¶š‚ª“ü—Í‚³‚ê‚é‚Ü‚Å‘å•¶š¬•¶š‚Ì‹æ•Ê‚ğ–³‹‚·‚é
-	let g:neocomplcache_enable_smart_case = 1
- 
-	" _(ƒAƒ“ƒ_[ƒXƒRƒA)‹æØ‚è‚Ì•âŠ®‚ğ—LŒø‰»
-	let g:neocomplcache_enable_underbar_completion = 1
- 
-	let g:neocomplcache_enable_camel_case_completion  =  1
- 
-	" ƒ|ƒbƒvƒAƒbƒvƒƒjƒ…[‚Å•\¦‚³‚ê‚éŒó•â‚Ì”
-	let g:neocomplcache_max_list = 20
- 
-	" ƒVƒ“ƒ^ƒbƒNƒX‚ğƒLƒƒƒbƒVƒ…‚·‚é‚Æ‚«‚ÌÅ¬•¶š’·
-	let g:neocomplcache_min_syntax_length = 3
-
 endfunction
 " }}}
 
-NeoBundle 'Shougo/neosnippet'		"{{{
-let s:bundle = neobundle#get('neosnippet')
-function! s:bundle.hooks.on_source(bundle)
-	imap <C-k>	<Plug>(neosnippet_expand_or_jump)
-	smap <C-k>	<Plug>(neosnippet_expand_or_jump)
-
-	let g:neosnippet#snippets_directory='~/_vim/vim-snippets/snippets'
-
-endfunction
-"}}}
-
-
-" vimshell {{{
-NeoBundleLazy 'Shougo/vimshell', {
-\	'autoload' : {
-\		'commands' : ['VimShell']
-\	},
-\}
-"}}}
-
-NeoBundle 'sgur/unite-everything'
-
-NeoBundle 'ujihisa/unite-colorscheme'
 
 NeoBundle 'Shougo/unite.vim'		"{{{
 let s:bundle = neobundle#get('unite.vim')
@@ -82,7 +45,8 @@ function! s:bundle.hooks.on_source(bundle)
 	nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 	nnoremap <silent> [unite]c :<C-u>Unite bookmark<CR>
 	nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
-	nnoremap <silent> [unite]e :<C-u>Unite everything<CR>
+	nnoremap <silent> [unite]e :<C-u>Unite everything/async<CR>
+	nnoremap <silent> [unite]h :<C-u>Unite history/yank<CR>
 
 	augroup vimrec
 		autocmd FileType unite call s:unite_my_settings()
@@ -94,27 +58,15 @@ function! s:bundle.hooks.on_source(bundle)
 endfunction
 "}}}
 
-" vimfiler {{{
-NeoBundleLazy 'Shougo/vimfiler', {
-\	'autoload' : {
-\		'commands' : ['VimFilerBufferDir', 'VimFilerCreate', 'VimFiler', 'VimFilerExplorer' ]
-\	},
-\	'depends' : ['Shougo/unite.vim'],
-\}
-" }}}
+NeoBundle 'sgur/unite-everything'
+let s:bundle = neobundle#get('unite-everything')
+function! s:bundle.hooks.on_source(bundle)
+	let g:unite_source_everything_cmd_path = "D:/apps/everything/es.exe"
+	" let g:unite_source_everything_limit = 10000
+	" let g:unite_source_everything_full_path_search = 1
+endfunction
 
-"NeoBundle 'ujihisa/quickrun'		"{{{
-"let s:bundle = neobundle#get('quickrun')
-"function! s:bundle.hooks.on_source(bundle)
-"	let g:quickrun_config = {}
-"	let g:quickrun_config = {
-"	\  '_': {
-"	\    'runmode': 'async:vimproc:10',
-"	\    'hook/output_encode/enable': 1,
-"	\  },
-"	\}
-"endfunction
-"}}}
+NeoBundle 'Shougo/neomru.vim'
 
 NeoBundle 'fuenor/qfixgrep'
 
@@ -127,20 +79,13 @@ endfunction
 NeoBundle 'tyru/open-browser.vim'
 
 NeoBundle 'thinca/vim-quickrun'
-let s:bundle = neobundle#get('vim-quickrun')
+
+NeoBundle 'kannokanno/previm'
+let s:bundle = neobundle#get('previm')
 function! s:bundle.hooks.on_source(bundle)
-	let g:quickrun_config = {}
-	let g:quickrun_config = {
-		\	'markdown' : {
-		\		'type': 'markdown/pandoc',
-		\		'outputter': 'browser',
-		\	}
-		\}
-"		\		'cmdopt': '-s',
+	"let g:previm_open_cmd = "C:\\Program\ Files\\Internet Explorer\\iexplore.exe"
 endfunction
 
-NeoBundle 'pangloss/vim-javascript'
- 
 NeoBundle 'vim-scripts/Align'
 let s:bundle = neobundle#get('Align')
 function! s:bundle.hooks.on_source(bundle)
@@ -157,9 +102,14 @@ function! s:bundle.hooks.on_source(bundle)
 	nmap k <Plug>(accelerated_jk_gk)
 endfunction
 
-" Required!
+NeoBundle 'vim-scripts/JavaScript-Indent'
+
+call neobundle#end()
+"
+" required
 filetype plugin indent on
 
+NeoBundleCheck
 
 " }}}
 syntax on
@@ -172,50 +122,61 @@ augroup filetypedetect
 	autocmd BufNewFile,BufRead *.markdown setfiletype markdown
 augroup END
 
-"ƒ^ƒu•
+"ã‚¿ãƒ–å¹…
 set tabstop=2
-"ƒ^ƒu‚Ì•Ï‚í‚è‚ÉƒXƒy[ƒX‚ğ‘}“ü
+"ã‚¿ãƒ–ã®å¤‰ã‚ã‚Šã«ã‚¹ãƒšãƒ¼ã‚¹ã‚’æŒ¿å…¥
 set expandtab
-"shifttab‚Ìİ’è‚ğ—LŒø‰»
+"shifttabã®è¨­å®šã‚’æœ‰åŠ¹åŒ–
 set smarttab
-"s“ª‚Ìtab
+"è¡Œé ­ã®tab
 set shiftwidth=2
-"ƒI[ƒgƒCƒ“ƒfƒ“ƒg
+"ã‚ªãƒ¼ãƒˆã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆ
 set autoindent
 
-"ƒNƒŠƒbƒvƒ{[ƒh‚ğwindows‚Æ˜AŒg
+"ã‚¯ãƒªãƒƒãƒ—ãƒœãƒ¼ãƒ‰ã‚’windowsã¨é€£æº
 set clipboard=unnamed
-"ƒ}ƒEƒX‘€ì
+"ãƒã‚¦ã‚¹æ“ä½œ
 set mouse=a
 
-"ŒŸõ‚Éƒ‹[ƒv‚µ‚È‚¢
+"æ¤œç´¢æ™‚ã«ãƒ«ãƒ¼ãƒ—ã—ãªã„
 set nowrapscan
-"ƒCƒ“ƒNƒŠƒƒ“ƒ^ƒ‹ƒT[ƒ`
+"ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ã‚¿ãƒ«ã‚µãƒ¼ãƒ
 set incsearch
 
-"Ü‚è•Ô‚µ•\¦‚µ‚È‚¢
+"æŠ˜ã‚Šè¿”ã—è¡¨ç¤ºã—ãªã„
 set nowrap
-"s”Ô†
+"è¡Œç•ªå·
 set number
-"”ñ•\¦•¶š‚ğ•\¦
+"éè¡¨ç¤ºæ–‡å­—ã‚’è¡¨ç¤º
 set list
-"“Áê•¶š‚ÌŒ©‚¦•û‚ğİ’è
+"ç‰¹æ®Šæ–‡å­—ã®è¦‹ãˆæ–¹ã‚’è¨­å®š
 set listchars=tab:>-
 
-" ƒwƒ‹ƒv‚Í“ú–{Œê—Dæ
+" ãƒ˜ãƒ«ãƒ—ã¯æ—¥æœ¬èªå„ªå…ˆ
 set helplang=ja
 
-" grep‚Évimgrep‚ğg—p‚·‚é
+" grepã«vimgrepã‚’ä½¿ç”¨ã™ã‚‹
 set grepprg=internal
 
-" ƒtƒ@ƒCƒ‹–¼•âŠ®‚ğbash‚Ì‚æ‚¤‚É‚·‚é
+" ãƒ•ã‚¡ã‚¤ãƒ«åè£œå®Œã‚’bashã®ã‚ˆã†ã«ã™ã‚‹
 set wildmode=list:longest
 
-" ƒXƒ€[ƒYƒXƒNƒ[ƒ‹iÎj
+" ã‚¹ãƒ ãƒ¼ã‚ºã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ï¼ˆç¬‘ï¼‰
 map <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
 map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
 
+" undoãƒ•ã‚¡ã‚¤ãƒ«ã®é…ç½®
+set undodir=D:\tmp\\undodir
 
+" Bash like KeyMaps {{{
+nmap     <C-j> <CR>
+imap     <C-j> <CR>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-a> <Home>
+cnoremap <C-h> <Backspace>
+cnoremap <C-d> <Del>
+cnoremap <C-e> <End>
 
 " vim: foldmethod=marker
 
