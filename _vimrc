@@ -178,5 +178,12 @@ cnoremap <C-h> <Backspace>
 cnoremap <C-d> <Del>
 cnoremap <C-e> <End>
 
+nnoremap <silent> tt :<C-u>tabe<CR>
+nnoremap <C-p> gT
+nnoremap <C-n> gt
+
+nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
+
+
 " vim: foldmethod=marker
 
