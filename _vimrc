@@ -1,36 +1,42 @@
-set nocompatible
+" Note: Skip initialization for vim-tiny or vim-small.
+ if 0 | endif
 
-" NeoBundle		"{{{
+ if has('vim_starting')
+   if &compatible
+     set nocompatible               " Be iMproved
+   endif
 
-" required!
-filetype off
+   " Required:
+   set runtimepath+=%USERPROFILE%\.vim\bundle\neobundle.vim\
+ endif
 
-if has('vim_starting')
-  set runtimepath+=%USERPROFILE%\_vim\bundle/neobundle.vim
-endif
+ " Required:
+ call neobundle#begin(expand('~/.vim/bundle/'))
 
-call neobundle#begin(expand('~/_vim/bundle/'))
+ " Let NeoBundle manage NeoBundle
+ " Required:
+ NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'sgur/unite-everything'
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'fuenor/qfixgrep'
+NeoBundle 'vim-scripts/capslock.vim'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'vim-scripts/Align'
+NeoBundle 'rhysd/accelerated-jk'
 
-"neocomplete {{{
-NeoBundle 'Shougo/neocomplete'
-" 起動時に有効化
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let s:bundle = neobundle#get('neocomplete')
-function! s:bundle.hooks.on_source(bundle)
-endfunction
-" }}}
+ call neobundle#end()
 
+ " Required:
+ filetype plugin indent on
 
-NeoBundle 'Shougo/unite.vim'		"{{{
-let s:bundle = neobundle#get('unite.vim')
-function! s:bundle.hooks.on_source(bundle)
+ " If there are uninstalled bundles found on startup,
+ " this will conveniently prompt you to install them.
+ NeoBundleCheck
+
+"  Shougo/unite.vim "{{{
+if neobundle#tap('unite.vim')
 	" unite refix key.
 	nnoremap [unite] <Nop>
 	nmap f [unite]
@@ -39,7 +45,6 @@ function! s:bundle.hooks.on_source(bundle)
 	let g:unite_source_file_mru_limit = 50
 	let g:unite_source_file_mru_filename_format = ''
 	let g:unite_enable_start_insert = 1
-
 
 	nnoremap <silent> [unite]f :<C-u>UniteWithCurrentDir -buffer-name=files file<CR>
 	nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
@@ -55,64 +60,33 @@ function! s:bundle.hooks.on_source(bundle)
 		nmap <buffer> <ESC> <Plug>(unite_exit)
 	endfunction
 
-endfunction
+endif
 "}}}
-
-NeoBundle 'sgur/unite-everything'
-let s:bundle = neobundle#get('unite-everything')
-function! s:bundle.hooks.on_source(bundle)
+" sgur/unite-everything "{{{
+if neobundle#tap('unite-everything')
 	let g:unite_source_everything_cmd_path = "D:/apps/everything/es.exe"
 	" let g:unite_source_everything_limit = 10000
 	" let g:unite_source_everything_full_path_search = 1
-endfunction
-
-NeoBundle 'Shougo/neomru.vim'
-
-NeoBundle 'fuenor/qfixgrep'
-
-NeoBundle 'vim-scripts/capslock.vim'
-let s:bundle = neobundle#get('capslock.vim')
-function! s:bundle.hooks.on_source(bundle)
+endif
+"}}}
+" vim-scripts/capslock.vim "{{{
+if neobundle#tap('capslock.vim')
 	imap <C-a> <C-O><Plug>CapsLockToggle
-endfunction
-
-NeoBundle 'tyru/open-browser.vim'
-
-NeoBundle 'thinca/vim-quickrun'
-
-NeoBundle 'kannokanno/previm'
-let s:bundle = neobundle#get('previm')
-function! s:bundle.hooks.on_source(bundle)
-	"let g:previm_open_cmd = "C:\\Program\ Files\\Internet Explorer\\iexplore.exe"
-endfunction
-
-NeoBundle 'vim-scripts/Align'
-let s:bundle = neobundle#get('Align')
-function! s:bundle.hooks.on_source(bundle)
+endif
+"}}}
+" vim-scripts/Align "{{{
+if neobundle#tap('Align')
 	let g:Align_xstrlen = 3
-endfunction
-
-
-NeoBundle 'rhysd/accelerated-jk'
-let s:bundle = neobundle#get('accelerated-jk')
-function! s:bundle.hooks.on_source(bundle)
+endif
+"}}}
+" rhysd/accelerated-jk "{{{
+if neobundle#tap('accelerated-jk')
 	" let g:accelerated_jk_acceleration_table = [50,20]
 	let g:accelerated_jk_acceleration_limit = 250
 	nmap j <Plug>(accelerated_jk_gj)
 	nmap k <Plug>(accelerated_jk_gk)
-endfunction
-
-NeoBundle 'vim-scripts/JavaScript-Indent'
-
-call neobundle#end()
-"
-" required
-filetype plugin indent on
-
-NeoBundleCheck
-
-" }}}
-syntax on
+endif
+"}}}
 
 " setfiletype
 augroup filetypedetect
@@ -182,7 +156,7 @@ nnoremap <silent> tt :<C-u>tabe<CR>
 nnoremap <C-p> gT
 nnoremap <C-n> gt
 
-nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
+" nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 
 
 " vim: foldmethod=marker
