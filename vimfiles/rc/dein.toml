@@ -13,3 +13,21 @@ repo = 'tyru/open-browser.vim'
 [[plugins]]
 repo = 'kannokanno/previm'
 
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+depends = ['neomru.vim']
+on_event = 'BufRead'
+hook_add = '''
+	nnoremap [Denite] <Nop>
+	nmap f [Denite]
+	nnoremap <silent> [Denite]b :<C-u>Denite buffer<CR>
+	nnoremap <silent> [Denite]m :<C-u>Denite file_mru<CR>
+	nnoremap <silent> [Denite]h :<C-u>Denite neoyank<CR>
+'''
+

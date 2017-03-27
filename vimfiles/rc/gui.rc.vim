@@ -11,7 +11,7 @@ if has('win32') || has('win64')
   " set guifontwide=VL\ Gothic:h11
   " set guifontwide=Ricty\ Diminished:h12
 
-  set guifont=Ricty\ Diminished:h14
+  set guifont=Ricty\ Diminished:h13
   " set guifont=Anonymous\ Pro:h11
   " set guifont=Courier\ New:h11
   " set guifont=MS\ Gothic:h11
