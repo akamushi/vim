@@ -14,9 +14,9 @@ call dein#begin(s:path, [expand('<sfile>')]
       \ + split(glob('~/vimfiles/rc/*.toml'), '\n'))
 
 call dein#load_toml('~/vimfiles/rc/dein.toml', {'lazy': 0})
-"call dein#load_toml('~/vimfiles/rc/deinlazy.toml', {'lazy' : 1})
+call dein#load_toml('~/vimfiles/rc/deinlazy.toml', {'lazy' : 1})
 if has('nvim')
-  call dein#load_toml('~/vimfiles/rc/deineo.toml', {})
+  " call dein#load_toml('~/vimfiles/rc/deineo.toml', {})
 endif
 "
 call dein#load_toml('~/vimfiles/rc/deinft.toml')

@@ -1,7 +1,7 @@
 "---------------------------------------------------------------------------
 " Edit:
 "
-
+set fileencodings=ucs-bom,utf-8,cp932,default
 " Smart insert tab setting.
 set smarttab
 " Exchange tab to spaces.
@@ -23,13 +23,14 @@ set modeline
 
 " Use clipboard register.
 
-if (!has('nvim') || $DISPLAY != '') && has('clipboard')
-  if has('unnamedplus')
-     set clipboard& clipboard+=unnamedplus
-  else
-     set clipboard& clipboard+=unnamed,autoselect
-  endif
-endif
+set clipboard +=unnamed
+" if (!has('nvim') || $DISPLAY != '') && has('clipboard')
+"   if has('unnamedplus')
+"      set clipboard& clipboard+=unnamedplus
+"   else
+"      set clipboard& clipboard+=unnamed,autoselect
+"   endif
+" endif
 
 " Enable backspace delete indent and newline.
 set backspace=indent,eol,start
