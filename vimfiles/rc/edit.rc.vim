@@ -149,3 +149,8 @@ cnoremap <C-h> <Backspace>
 cnoremap <C-d> <Del>
 cnoremap <C-e> <End>
 "}}}
+
+nnoremap H  ^
+nnoremap L  $
+
+

@@ -11,10 +11,18 @@ repo = 'Yggdroot/indentLine'
 repo = 'Shougo/neomru.vim'
 
 [[plugins]]
-repo = 'w0rp/ale.vim'
+repo = 'Shougo/neoyank.vim'
 
 [[plugins]]
-repo = 'Shougo/neoyank.vim'
+repo = 'cocopon/iceberg.vim'
+
+[[plugins]]
+repo = 'haya14busa/incsearch.vim'
+hook_add = '''
+    map /  <Plug>(incsearch-forward)
+    map ?  <Plug>(incsearch-backward)
+    map g/ <Plug>(incsearch-stay)
+'''
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
@@ -32,7 +40,7 @@ hook_add = '''
     nmap f [Denite]
 
     " プロジェクト内のファイル検索
-    nmap <silent> [Denite]p :<C-u>Denite file_rec -highlight-mode-insert=Search<CR>
+    nmap <silent> [Denite]f :<C-u>Denite file_rec -highlight-mode-insert=Search<CR>
     " バッファに展開中のファイル検索
     nmap <silent> [Denite]b :<C-u>Denite buffer -highlight-mode-insert=Search<CR>
     " ファイル内の関数/クラス等の検索
@@ -74,10 +82,10 @@ hook_add = '''
     endif
 
     " /をDeniteにマッピング
-    nnoremap <silent> / :<C-u>Denite -buffer-name=search -auto-resize line<CR>
+    " nnoremap <silent> / :<C-u>Denite -buffer-name=search -auto-resize line<CR>
 
     " 検索バッファを開く
-    nnoremap <silent> ;/ :<C-u>Denite -buffer-name=search -resume -mode=insert<CR>
+    " nnoremap <silent> ;/ :<C-u>Denite -buffer-name=search -resume -mode=insert<CR>
 
 '''
 

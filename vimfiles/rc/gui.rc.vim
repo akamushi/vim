@@ -127,7 +127,14 @@ set guioptions+=c
 " Don't flick cursor.
 set guicursor&
 set guicursor+=a:blinkon0
+
 "}}}
 
-colorscheme desert
+" colorscheme desert
+colorscheme iceberg
+
+" hilight line
+set cursorline
+hi clear CursorLine
+
 " vim: foldmethod=marker
